@@ -37,6 +37,8 @@ namespace CardGames.GameLogic
 		public Snap ()
 		{
 			_deck = new Deck ();
+                                                     _gameTimer = Swingame.CreateTimer ();
+
 		}
 
 		/// <summary>
@@ -92,7 +94,8 @@ namespace CardGames.GameLogic
 				_deck.Shuffle ();		// Return the cards and shuffle
 
 				FlipNextCard ();		// Flip the first card...
-			}
+		_gameTimer.Start();	
+}
 		}
 			
 		public void FlipNextCard()
@@ -111,6 +114,11 @@ namespace CardGames.GameLogic
 		/// </summary>
 		public void Update()
 		{
+                                     if(_gameTimer.Ticks> _flipTime)
+{
+_gameTimer.Reset  ();
+FlipNextCard  ();
+}
 			//TODO: implement update to automatically slip cards!
 		}
 
@@ -143,6 +151,7 @@ namespace CardGames.GameLogic
 
 			// stop the game...
 			_started = false;
+                                                     _gameTimer.Stop  ();
 		}
 	
 		#region Snap Game Unit Tests
